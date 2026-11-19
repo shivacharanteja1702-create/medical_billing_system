@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}MediBill{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="{% if not session.get('user_id') %}auth-body{% endif %}">
+{% if session.get('user_id') %}
+<header class="topbar">
+  <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-icon">✚</span><span>Medi<span>Bill</span></span></a>
+  <nav>
+    <a href="{{ url_for('dashboard') }}">Dashboard</a><a href="{{ url_for('patients') }}">Patients</a>
+    <a href="{{ url_for('services') }}">Services</a><a href="{{ url_for('bills') }}">Bills</a>
+    <a href="{{ url_for('reports') }}">Reports</a>
+  </nav>
+  <div class="user-area"><span class="user-avatar">{{ session.get('username','U')[0]|upper }}</span><span>{{ session.get('username') }}</span><a class="logout" href="{{ url_for('logout') }}">Logout</a></div>
+</header>
+{% endif %}
+<main class="{% if not session.get('user_id') %}auth-main{% else %}page{% endif %}">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}<div class="flash-list">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer>✚ MediBill · Medical Billing & Patient Management </footer>
+</body></html>

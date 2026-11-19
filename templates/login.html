@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Sign in | MediBill{% endblock %}
+{% block content %}
+<section class="auth-layout"><div class="auth-copy"><div class="eyebrow light">SMART HEALTHCARE ADMINISTRATION</div><h1>Care for patients.<br><em>Clarity for billing.</em></h1><p>Manage patient records, healthcare services and invoices in one simple workspace.</p><div class="trust-row"><span>✓ Secure staff access</span><span>✓ Clear invoice tracking</span></div></div>
+<div class="login-card"><div class="logo-large">✚</div><p class="eyebrow">WELCOME BACK</p><h2>Sign in to MediBill</h2><p class="muted">Enter your staff credentials to continue.</p>
+<form method="post" class="form-stack"><label>Username<input name="username" required autocomplete="username" placeholder="Enter username"></label><label>Password<input type="password" name="password" required autocomplete="current-password" placeholder="Enter password"></label><button class="button primary full" type="submit">Sign in securely →</button></form>
+<div class="demo-login"><b>Demo account</b><br>Username: <code>admin</code> &nbsp; Password: <code>admin123</code></div><p class="auth-switch">New staff member? <a href="{{ url_for('register') }}">Create an account</a></p></div></section>
+{% endblock %}

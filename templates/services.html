@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Services | MediBill{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">CARE CATALOGUE</p><h1>Medical services</h1><p class="muted">Manage the services and rates available for invoices.</p></div></div>
+<div class="two-column"><form method="post" class="content-card form-stack"><h2>Add a service</h2><label>Service name *<input name="name" required placeholder="e.g. Consultation"></label><label>Description<textarea name="description" rows="3" placeholder="Short service description"></textarea></label><label>Price (₹) *<input type="number" name="price" min="0" step="0.01" required placeholder="0.00"></label><button class="button primary" type="submit">＋ Add service</button></form>
+<div class="content-card"><div class="section-head"><h2>Available services</h2><span class="count-pill">{{ services|length }} services</span></div>{% if services %}<div class="table-wrap"><table><thead><tr><th>Service</th><th>Description</th><th>Price</th></tr></thead><tbody>{% for s in services %}<tr><td class="strong">{{ s.name }}</td><td>{{ s.description or '—' }}</td><td>₹{{ "%.2f"|format(s.price) }}</td></tr>{% endfor %}</tbody></table></div>{% else %}<div class="empty-state">No services added yet.</div>{% endif %}</div></div>
+{% endblock %}

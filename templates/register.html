@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Staff registration | MediBill{% endblock %}
+{% block content %}
+<section class="auth-layout"><div class="auth-copy"><div class="eyebrow light">JOIN THE MEDIBILL TEAM</div><h1>One workspace.<br><em>Smoother care.</em></h1><p>Create a staff account to manage patients, services and invoices.</p><div class="trust-row"><span>✓ Simple workflow</span><span>✓ Organized billing</span></div></div>
+<div class="login-card"><div class="logo-large">✚</div><p class="eyebrow">STAFF ACCESS</p><h2>Create account</h2><p class="muted">Register a username and password.</p>
+<form method="post" class="form-stack"><label>Username<input name="username" required minlength="3" autocomplete="username" placeholder="At least 3 characters"></label><label>Password<input type="password" name="password" required minlength="6" autocomplete="new-password" placeholder="At least 6 characters"></label><label>Confirm password<input type="password" name="confirm_password" required minlength="6" autocomplete="new-password" placeholder="Re-enter password"></label><button class="button primary full" type="submit">Create staff account →</button></form>
+<p class="auth-switch">Already registered? <a href="{{ url_for('login') }}">Sign in</a></p></div></section>
+{% endblock %}

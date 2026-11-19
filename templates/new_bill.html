@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Create invoice | MediBill{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">BILLING WORKSPACE</p><h1>Create an invoice</h1><p class="muted">Select a patient, choose services and confirm the payment details.</p></div><a class="button secondary" href="{{ url_for('bills') }}">Cancel</a></div>
+{% if not patients %}<div class="content-card empty-state">Add a patient before creating an invoice. <a class="text-link" href="{{ url_for('patients') }}">Go to patients →</a></div>
+{% elif not services %}<div class="content-card empty-state">Add at least one service before creating an invoice. <a class="text-link" href="{{ url_for('services') }}">Go to services →</a></div>
+{% else %}
+<form method="post" class="content-card form-stack" id="invoice-form">
+<div class="form-section"><h2>01 · Patient details</h2><label>Choose patient *<select name="patient_id" required><option value="">Select a registered patient</option>{% for p in patients %}<option value="{{ p.id }}">{{ p.name }}{% if p.phone %} — {{ p.phone }}{% endif %}</option>{% endfor %}</select></label></div>
+<div class="form-section"><h2>02 · Invoice items</h2><p class="muted">Select one or more services. Set the quantity for each selected service.</p><div class="service-picker">{% for s in services %}<label class="service-option"><span class="service-check"><input type="checkbox" name="service_ids" value="{{ s.id }}"><span><b>{{ s.name }}</b><small>{{ s.description or 'Medical service' }}</small></span></span><span class="service-price">₹{{ "%.2f"|format(s.price) }}<input type="number" name="quantity_{{ s.id }}" value="1" min="1" max="1000" aria-label="Quantity for {{ s.name }}"></span></label>{% endfor %}</div></div>
+<div class="form-section"><h2>03 · Payment summary</h2><div class="form-row"><label>Discount (₹)<input type="number" name="discount" min="0" step="0.01" value="0"></label><label>Initial payment (₹)<input type="number" name="paid" min="0" step="0.01" value="0"></label></div><label>Notes (optional)<textarea name="notes" rows="2" placeholder="Additional billing notes"></textarea></label></div>
+<div class="hint">The server calculates the final amount and saves the invoice and all selected items together. After saving, the invoice appears in Billing History, Dashboard and Reports.</div>
+<button class="button primary generate-button" type="submit">✓ Generate and save invoice</button></form>
+{% endif %}
+{% endblock %}
